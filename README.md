@@ -9,9 +9,10 @@
   - **4.19 Kernel:** Only **version 1.0.1 (11948)** or earlier of the official KernelSU manager is supported.
   - **5.4 Kernel:** The latest version of the official KernelSU manager is currently supported.
 
-### Kernel Source
-- The kernel source is entirely from the official ROM authors.  
-- The only modification is the addition of KernelSU.
+### KernelSU Source
+- [KernelSU](https://github.com/tiann/KernelSU)
+- [Non-Official KernelSU](https://github.com/rsuntk/KernelSU)
+- [KernelSU Next](https://github.com/rifsxd/KernelSU-Next) ```susfs support```
 
 ## Installation Guide  
 
