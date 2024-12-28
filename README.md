@@ -11,7 +11,7 @@
 
 ### KernelSU Source
 - [KernelSU](https://github.com/tiann/KernelSU)
-- [Non-Official KernelSU](https://github.com/rsuntk/KernelSU)
+- [Non-Official KernelSU](https://github.com/backslashxx/KernelSU)
 - [KernelSU Next](https://github.com/rifsxd/KernelSU-Next) ```susfs support```
 
 ## Installation Guide  
