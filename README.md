@@ -21,18 +21,19 @@
 1. Download AnyKernel3 from github action  
 
 **LineageOS 21**:   
-- [OPlus SM8250](https://github.com/AzusaHana/KernelSU_Build_Test/actions/workflows/LineageOS-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```  
-- [OPlus SM8550](https://github.com/AzusaHana/KernelSU_Build_Test/actions/workflows/LineageOS-Salami-Kernel.yml): ```OnePlus 11 (salami)```  
+- [OPlus SM8250](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/LineageOS-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```  
+- [OPlus SM8550](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/LineageOS-Salami-Kernel.yml): ```OnePlus 11 (salami)```  
 
 **Nameless-CLO 15**:  
-- [OPlus SM8250 (Chris Chen)](https://github.com/AzusaHana/KernelSU_Build_Test/actions/workflows/Nameless-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```  
+- [OPlus SM8250 (Chris Chen)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```  
+- [OPlus SM8250 (KernelSU Next)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8250-Kernel-Next.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```
 
 **Nameless 14**:   
-- [OPlus SM8350 (Chandu)](https://github.com/AzusaHana/KernelSU_Build_Test/actions/workflows/Nameless-OPlus-SM8350(Chandu)-Kernel.yml): ```OnePlus 9 | OnePlus 9 Pro```   
-- [OPlus SM8550 (Chandu)](https://github.com/AzusaHana/KernelSU_Build_Test/actions/workflows/Nameless-OPlus-SM8550-Kernel.yml): ```OnePlus 11 (salami)```  
+- [OPlus SM8350 (Chandu)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8350(Chandu)-Kernel.yml): ```OnePlus 9 | OnePlus 9 Pro```   
+- [OPlus SM8550 (Chandu)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8550-Kernel.yml): ```OnePlus 11 (salami)```  
 
 **PixelOS 14**:  
-- [OPlus SM8250 (jef00)](https://github.com/AzusaHana/KernelSU_Build_Test/actions/workflows/PixelOS-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```   
+- [OPlus SM8250 (jef00)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/PixelOS-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```   
 
 2. Using ```adb sideload``` to flash AnyKernel3  
 Reboot to recovery mode and use ```adb sideload AK3-xxx.zip``` to flash AnyKernel3.
