@@ -74,7 +74,7 @@ jobs:
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/KernelSU-Next
         patch -p1 < 10_enable_susfs_for_ksu.patch
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/
-        patch -p1 < 50_add_susfs_in_kernel.patch
+        patch -p1 < 50_add_susfs_in_kernel-4.19.patch
         # Make sure again to have CONFIG_KSU and CONFIG_KSU_SUSFS enabled before building the kernel
         sed -i 's/# CONFIG_KSU is not set/CONFIG_KSU=y/g' arch/arm64/configs/vendor/kona-perf_defconfig
         sed -i 's/# CONFIG_KSU_SUSFS is not set/CONFIG_KSU_SUSFS=y/g' arch/arm64/configs/vendor/kona-perf_defconfig
