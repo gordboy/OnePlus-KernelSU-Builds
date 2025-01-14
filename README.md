@@ -2,17 +2,9 @@
 
 ## Important Things
 
-### Official KernelSU
-- For **NonGKI** devices, the last officially supported version of KernelSU is **0.9.5 (11872)**.  
-  *(Versions 1.0 and later no longer support NonGKI, so please stop asking why the KernelSU version is always 11872.)*
-- Device-specific notes:
-  - **4.19 Kernel:** Only **version 1.0.1 (11948)** or earlier of the official KernelSU manager is supported.
-  - **5.4 Kernel:** The latest version of the official KernelSU manager is currently supported.
-
 ### KernelSU Source
-- [KernelSU](https://github.com/tiann/KernelSU)
-- [Non-Official KernelSU](https://github.com/backslashxx/KernelSU)
-- [KernelSU Next](https://github.com/rifsxd/KernelSU-Next) ```susfs support```
+- [Rsuntk KernelSU](https://github.com/rsuntk/KernelSU)
+- [KernelSU Next](https://github.com/rifsxd/KernelSU-Next)
 
 ## Installation Guide  
 
@@ -23,17 +15,6 @@
 **LineageOS 21**:   
 - [OPlus SM8250](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/LineageOS-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```  
 - [OPlus SM8550](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/LineageOS-Salami-Kernel.yml): ```OnePlus 11 (salami)```  
-
-**Nameless-CLO 15**:  
-- [OPlus SM8250 (Chris Chen)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```  
-- [OPlus SM8250 (KernelSU Next)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8250-Kernel-Next.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```
-
-**Nameless 14**:   
-- [OPlus SM8350 (Chandu)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8350(Chandu)-Kernel.yml): ```OnePlus 9 | OnePlus 9 Pro```   
-- [OPlus SM8550 (Chandu)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/Nameless-OPlus-SM8550-Kernel.yml): ```OnePlus 11 (salami)```  
-
-**PixelOS 14**:  
-- [OPlus SM8250 (jef00)](https://github.com/OodavidsinoO/OnePlus-KernelSU-Builds/actions/workflows/PixelOS-OPlus-SM8250-Kernel.yml): ```OnePlus 8 | OnePlus 8 Pro | OnePlus 8T | OnePlus 9R```   
 
 2. Using ```adb sideload``` to flash AnyKernel3  
 Reboot to recovery mode and use ```adb sideload AK3-xxx.zip``` to flash AnyKernel3.
@@ -46,14 +27,5 @@ After installing the OTA and before rebooting, use [Kernel Flasher](https://gith
 
 ## Original Kernel Source  
 
-LineageOS 21:  
+LineageOS 22.1:  
 [OPlus SM8250](https://github.com/LineageOS/android_kernel_oneplus_sm8250) | [OPlus SM8550](https://github.com/LineageOS/android_kernel_oneplus_sm8550)  
-
-Nameless-CLO 15:  
-[OPlus SM8250 (Chris Chen)](https://github.com/Nameless-AOSP-OSS/kernel_oneplus_sm8250)  
-
-Nameless 14:  
-[OPlus SM8350 (Chandu)](https://github.com/chandu078/android_kernel_oneplus_sm8350) | [OPlus SM8350 (pjgowtham)](https://github.com/pjgowtham/android_kernel_oneplus_sm8350) | [OPlus SM8550 (Chandu)](https://github.com/chandu078/android_kernel_oneplus_sm8550)  
-
-PixelOS 14:  
-[OPlus SM8250 (jef00)](https://github.com/jef00/kernel_oneplus_sm8250/tree/lineage-21-aosp-new)  
