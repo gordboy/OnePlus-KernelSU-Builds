@@ -1,4 +1,4 @@
-name: Build LineageOS OPlus SM8250 Kernel
+name: Build LineageOS OPlus SM8250 Kernel with KernelSU/KernelSU Next
 
 on:
   workflow_dispatch:
@@ -43,20 +43,20 @@ jobs:
     - name: Download kernel source
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone --recursive https://github.com/LineageOS/android_kernel_oneplus_sm8250 -b lineage-21 android-kernel --depth=1
+        git clone --recursive https://github.com/LineageOS/android_kernel_oneplus_sm8250 -b lineage-22.1 android-kernel --depth=1
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/scripts
         sed -i 's/ -dirty//g' setlocalversion
         cd $GITHUB_WORKSPACE/patches
         sed -i '1655 r path_umount.c' $GITHUB_WORKSPACE/kernel_workspace/android-kernel/fs/namespace.c
 
-    - name: Setup official KernelSU
+    - name: Setup rsuntk KernelSU
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
+        curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
         KSU_VERSION=$(cd KernelSU && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
         echo "KSUVER=$KSU_VERSION" >> $GITHUB_ENV
       
-    - name: Build kernel with official KernelSU
+    - name: Build kernel with rsuntk KernelSU
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         export ARCH=arm64
@@ -71,7 +71,7 @@ jobs:
         make O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD $DEFCONFIG
         make -j$(nproc --all) O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD
     
-    - name: Check a kernel output files with official KernelSU
+    - name: Check a kernel output files with rsuntk KernelSU
       run: |
        cd $GITHUB_WORKSPACE/kernel_workspace
        if [ -f android-kernel/out/arch/arm64/boot/Image ]; then
@@ -81,7 +81,7 @@ jobs:
            exit 1
        fi
       
-    - name: Make AnyKernel3 with official KernelSU
+    - name: Make AnyKernel3 with rsuntk KernelSU
       if: env.CHECK_IMAGE == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
@@ -92,7 +92,7 @@ jobs:
         cp android-kernel/out/arch/arm64/boot/Image AnyKernel3/
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
-    - name: Compress AnyKernel3 with official KernelSU folder to zip
+    - name: Compress AnyKernel3 with rsuntk KernelSU folder to zip
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/AnyKernel3
         zip -r $GITHUB_WORKSPACE/AK3-LineageOS-OPlus-SM8250-Official-KSU_${{ env.KSUVER }}-${{ env.BUILD_TIME }}.zip ./*
@@ -101,26 +101,26 @@ jobs:
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: Image-LOS21-OPlus-SM8250-Official-KSU_${{ env.KSUVER }}
+        name: Image-LOS21-OPlus-SM8250-Rsuntk-KSU_${{ env.KSUVER }}
         path: kernel_workspace/android-kernel/out/arch/arm64/boot/Image
 
     - name: Upload AnyKernel3
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: AK3-LOS21-OPlus-SM8250-Official-KSU_${{ env.KSUVER }}-${{ env.BUILD_TIME }}
+        name: AK3-LOS21-OPlus-SM8250-Rsuntk-KSU_${{ env.KSUVER }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/AnyKernel3/*
 
-    - name: Setup unofficial KernelSU
+    - name: Setup KernelSU Next
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         rm -rf KernelSU
         rm -rf drivers/kernelsu
-        curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+        curl -LSs "https://raw.githubusercontent.com/rifsxd/KernelSU-Next/next/kernel/setup.sh" | bash -
         KSU_VERSION_1=$(cd KernelSU && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
         echo "KSUVER_1=$KSU_VERSION_1" >> $GITHUB_ENV
 
-    - name: Build kernel with unofficial KernelSU
+    - name: Build kernel with KernelSU Next
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         rm -rf out/arch/arm64/boot/Image
@@ -136,7 +136,7 @@ jobs:
         make O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD $DEFCONFIG
         make -j$(nproc --all) O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD
 
-    - name: Check a kernel output files with unofficial KernelSU
+    - name: Check a kernel output files with KernelSU Next
       run: |
        cd $GITHUB_WORKSPACE/kernel_workspace
        if [ -f android-kernel/out/arch/arm64/boot/Image ]; then
@@ -146,7 +146,7 @@ jobs:
            exit 1
        fi
 
-    - name: Make AnyKernel3 with unofficial KernelSU
+    - name: Make AnyKernel3 with KernelSU Next
       if: env.CHECK_IMAGE_1 == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
@@ -157,12 +157,12 @@ jobs:
       if: env.CHECK_IMAGE_1 == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: Image-LOS21-OPlus-SM8250-Unofficial-KSU_${{ env.KSUVER_1 }}
+        name: Image-LOS21-OPlus-SM8250-KSUN_${{ env.KSUVER_1 }}
         path: kernel_workspace/android-kernel/out/arch/arm64/boot/Image
 
     - name: Upload AnyKernel3
       if: env.CHECK_IMAGE_1 == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: AK3-LOS21-OPlus-SM8250-Unofficial-KSU_${{ env.KSUVER_1 }}-${{ env.BUILD_TIME }}
+        name: AK3-LOS21-OPlus-SM8250-Rifsxd-KSUN_${{ env.KSUVER_1 }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/AnyKernel3/*
