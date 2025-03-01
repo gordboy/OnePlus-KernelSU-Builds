@@ -60,16 +60,16 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
         git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-4.19
-        git clone https://github.com/WildPlusKernel/kernel_patches
+        #git clone https://github.com/WildPlusKernel/kernel_patches
         cp susfs4ksu/kernel_patches/50_add_susfs_in_kernel-4.19.patch android-kernel/
         cp susfs4ksu/kernel_patches/fs/* android-kernel/fs/
         cp susfs4ksu/kernel_patches/include/linux/* android-kernel/include/linux/
-        cp kernel_patches/new_hooks.patch android-kernel/
-        cp kernel_patches/69_hide_stuff.patch android-kernel/
+        #cp kernel_patches/new_hooks.patch android-kernel/
+        #cp kernel_patches/69_hide_stuff.patch android-kernel/
         cd android-kernel
         patch -p1 < 50_add_susfs_in_kernel-4.19.patch || true
-        patch -p1 -F 3 < new_hooks.patch
-        patch -p1 -F 3 < 69_hide_stuff.patch
+        #patch -p1 -F 3 < new_hooks.patch
+        #patch -p1 -F 3 < 69_hide_stuff.patch
 
     - name: Add SUSFS defconfig options
       run: |
