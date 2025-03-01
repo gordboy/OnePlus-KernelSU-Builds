@@ -1,4 +1,4 @@
-name: Build LineageOS OPlus SM8250 Kernel with KernelSU/KernelSU Next
+name: Build LineageOS OPlus SM8250 Kernel with KernelSU Next and SUSFS
 
 on:
   workflow_dispatch:
