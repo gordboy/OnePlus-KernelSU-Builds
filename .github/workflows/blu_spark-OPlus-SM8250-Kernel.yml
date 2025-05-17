@@ -1,10 +1,10 @@
-name: Build LineageOS OPlus SM8250 Kernel with KernelSU Next and SUSFS
+name: Build blu_spark OPlus SM8250 Kernel with KernelSU Next
 
 on:
   workflow_dispatch:
 
 env:
-  TZ: Asia/Shanghai
+  TZ: America/New_York
 
 jobs:
   build:
@@ -20,8 +20,8 @@ jobs:
     
     - name: Setup build kernel environment
       run: |
-        echo "BUILD_TIME=$(TZ=Asia/Shanghai date "+%y%m%d")" >> $GITHUB_ENV
-        echo "BUILD_TIME_1=$(TZ=Asia/Shanghai date "+%Y-%m-%d")" >> $GITHUB_ENV
+        echo "BUILD_TIME=$(TZ=America/New_York date "+%y%m%d")" >> $GITHUB_ENV
+        echo "BUILD_TIME_1=$(TZ=America/New_York date "+%Y-%m-%d")" >> $GITHUB_ENV
         sudo apt-get update
         sudo apt-get install git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib bzip2 libbz2-dev liblz4-tool make squashfs-tools dpkg-dev libssl-dev python3 bc libc6-dev-i386 libncurses5-dev
         mkdir -p $GITHUB_WORKSPACE/kernel_workspace
@@ -43,7 +43,7 @@ jobs:
     - name: Download kernel source
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone --recursive https://github.com/LineageOS/android_kernel_oneplus_sm8250 -b lineage-22.1 android-kernel --depth=1
+        git clone --recursive https://github.com/engstk/op8 -b blu_spark-15-custom android-kernel --depth=1
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/scripts
         sed -i 's/ -dirty//g' setlocalversion
         cd $GITHUB_WORKSPACE/patches
@@ -55,45 +55,6 @@ jobs:
         curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next-susfs/kernel/setup.sh" | bash -s next-susfs
         KSU_VERSION=$(cd KernelSU-Next && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
         echo "KSUVER=$KSU_VERSION" >> $GITHUB_ENV
-
-    - name: Setup SUSFS
-      run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-4.19
-        #git clone https://github.com/WildPlusKernel/kernel_patches
-        cp susfs4ksu/kernel_patches/50_add_susfs_in_kernel-4.19.patch android-kernel/
-        cp susfs4ksu/kernel_patches/fs/* android-kernel/fs/
-        cp susfs4ksu/kernel_patches/include/linux/* android-kernel/include/linux/
-        #cp kernel_patches/new_hooks.patch android-kernel/
-        #cp kernel_patches/69_hide_stuff.patch android-kernel/
-        cd android-kernel
-        patch -p1 < 50_add_susfs_in_kernel-4.19.patch || true
-        #patch -p1 -F 3 < new_hooks.patch
-        #patch -p1 -F 3 < 69_hide_stuff.patch
-
-    - name: Add SUSFS defconfig options
-      run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        echo "CONFIG_KSU=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_SUS_PATH=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_SUS_MOUNT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_SUS_KSTAT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_TRY_UMOUNT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_AUTO_ADD_TRY_UMOUNT_FOR_BIND_MOUNT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_SPOOF_UNAME=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_ENABLE_LOG=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_TMPFS_XATTR=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_TMPFS_POSIX_ACL=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_IP_NF_TARGET_TTL=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_IP6_NF_TARGET_HL=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
-        echo "CONFIG_IP6_NF_MATCH_HL=y" >> arch/arm64/configs/vendor/kona-perf_defconfig
 
     - name: Build kernel
       run: |
@@ -107,7 +68,7 @@ jobs:
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
         BA_CMD="CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android-"
         EX_CMD="LD=ld.lld LLVM=1 LLVM_IAS=1"
-        DEFCONFIG="vendor/kona-perf_defconfig vendor/debugfs.config"
+        DEFCONFIG="vendor/blu_spark_defconfig vendor/debugfs.config"
         make O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD $DEFCONFIG
         make -j$(nproc --all) O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD
 
@@ -132,12 +93,12 @@ jobs:
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: Image-LOS22-OPlus-SM8250-KSUN-SUSFS_${{ env.KSUVER }}
+        name: Image-blu_spark-OPlus-SM8250-KSUN_${{ env.KSUVER }}
         path: kernel_workspace/android-kernel/out/arch/arm64/boot/Image
 
     - name: Upload AnyKernel3 zip
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: AK3-LOS22-OPlus-SM8250-KSUN-SUSFS_${{ env.KSUVER }}-${{ env.BUILD_TIME }}
+        name: AK3-blu_spark-OPlus-SM8250-KSUN_${{ env.KSUVER }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/AnyKernel3/*
