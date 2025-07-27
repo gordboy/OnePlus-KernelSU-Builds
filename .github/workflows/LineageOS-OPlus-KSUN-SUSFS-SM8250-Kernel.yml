@@ -1,4 +1,4 @@
-name: Build LineageOS OPlus SM8250 Kernel with KernelSU Next and SUSFS from latest jcallan1986 source repos
+name: Build AK3 zip with LineageOS OPlus SM8250 Kernel with KSUN/SUSFS from latest jcallan1986 source repos
 
 on:
   workflow_dispatch:
