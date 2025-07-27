@@ -1,4 +1,4 @@
-name: Build plain LineageOS OPlus SM8250 Kernel from latest lineageos source repos
+name: Build AK3 zip with plain LineageOS OPlus SM8250 Kernel from latest lineageos source repos
 
 on:
   workflow_dispatch:
@@ -59,7 +59,7 @@ jobs:
         make O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD $DEFCONFIG
         make -j$(nproc --all) O=out ARCH=arm64 CC=clang $BA_CMD $EX_CMD
     
-    - name: Check a kernel output files
+    - name: Check kernel output file
       run: |
        cd $GITHUB_WORKSPACE/kernel_workspace
        if [ -f android-kernel/out/arch/arm64/boot/Image ]; then
@@ -69,13 +69,6 @@ jobs:
            exit 1
        fi
       
-    - name: Upload Image
-      if: env.CHECK_IMAGE == 'true'
-      uses: actions/upload-artifact@v4
-      with:
-        name: Image-LOS22.2-OPlus-SM8250-PLAIN
-        path: kernel_workspace/android-kernel/out/arch/arm64/boot/Image
-
     - name: Make AnyKernel3
       if: env.CHECK_IMAGE == 'true'
       run: |
@@ -85,17 +78,11 @@ jobs:
         sed -i 's!BLOCK=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!BLOCK=auto;!g' AnyKernel3/anykernel.sh
         sed -i 's/IS_SLOT_DEVICE=0;/IS_SLOT_DEVICE=auto;/g' AnyKernel3/anykernel.sh
         cp android-kernel/out/arch/arm64/boot/Image AnyKernel3/
-        rm -rf AnyKernel3/.git* AnyKernel3/README.md
+        rm -f AnyKernel3/.git* AnyKernel3/README.md
 
-    - name: Compress AnyKernel3
-      if: env.CHECK_IMAGE == 'true'
-      run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace/AnyKernel3
-        zip -r $GITHUB_WORKSPACE/AK3-LOS22.2-OPlus-SM8250-PLAIN.zip ./*
-
-    - name: Upload AnyKernel3
+    - name: Upload AnyKernel3 (auto zipped)
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: AK3-LOS22.2-OPlus-SM8250-PLAIN.zip
-        path: kernel_workspace/AnyKernel3/AK3-LOS22.2-OPlus-SM8250-PLAIN.zip
+        path: kernel_workspace/AnyKernel3/*
