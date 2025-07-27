@@ -1,4 +1,4 @@
-name: Build LineageOS OPlus SM8250 Kernel with KernelSU Next and SUSFS from latest jcallan1986 source repos
+name: Build plain LineageOS OPlus SM8250 Kernel from latest lineageos source repos
 
 on:
   workflow_dispatch:
