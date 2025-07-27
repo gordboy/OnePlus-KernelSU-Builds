@@ -78,7 +78,7 @@ jobs:
         sed -i 's!BLOCK=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!BLOCK=auto;!g' AnyKernel3/anykernel.sh
         sed -i 's/IS_SLOT_DEVICE=0;/IS_SLOT_DEVICE=auto;/g' AnyKernel3/anykernel.sh
         cp android-kernel/out/arch/arm64/boot/Image AnyKernel3/
-        rm -f AnyKernel3/.git* AnyKernel3/README.md
+        rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
     - name: Upload AnyKernel3 (auto zipped)
       if: env.CHECK_IMAGE == 'true'
