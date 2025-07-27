@@ -26,14 +26,14 @@ jobs:
         sudo apt-get install git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib bzip2 libbz2-dev liblz4-tool make squashfs-tools dpkg-dev libssl-dev python3 bc libc6-dev-i386 libncurses5-dev
         mkdir -p $GITHUB_WORKSPACE/kernel_workspace
     
-    - name: Download Clang-aosp
+    - name: Download Clang
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        mkdir clang-aosp
-        wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main-kernel-build-2023/clang-r487747c.tar.gz
-        tar -C clang-aosp/ -zxvf clang-r487747c.tar.gz
+        mkdir clang
+        wget https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-Linux-X64.tar.xz
+        tar -C clang/ -Jxvf LLVM-19.1.7-Linux-X64.tar.xz
     
-    - name: Download Gcc-aosp
+    - name: Download GCC-64
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
           mkdir gcc-64
