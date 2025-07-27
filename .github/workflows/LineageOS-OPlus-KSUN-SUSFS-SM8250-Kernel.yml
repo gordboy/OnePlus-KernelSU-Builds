@@ -30,8 +30,8 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
         mkdir clang
-        wget https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-Linux-X64.tar.xz
-        tar -C clang/ -Jxvf LLVM-19.1.7-Linux-X64.tar.xz
+        wget -O clang.tar.xz https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-Linux-X64.tar.xz
+        tar -C clang/ -xvf clang.tar.xz --strip-components 1
     
     - name: Download GCC-64
       run: |
