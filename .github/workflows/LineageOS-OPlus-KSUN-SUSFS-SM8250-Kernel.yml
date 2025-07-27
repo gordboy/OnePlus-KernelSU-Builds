@@ -84,5 +84,5 @@ jobs:
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: AK3-LOS22.2-OPlus-SM8250-KSUN-SUSFS.zip
+        name: AK3-LOS22.2-OPlus-SM8250-KSUN-SUSFS
         path: kernel_workspace/AnyKernel3/*
