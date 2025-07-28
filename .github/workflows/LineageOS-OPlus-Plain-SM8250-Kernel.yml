@@ -43,7 +43,7 @@ jobs:
     - name: Download kernel sources fully expanded (from lineageos repo)
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone --recurse-submodules -j8 https://github.com/LineageOS/android_kernel_oneplus_sm8250.git -b lineage-22.2 android-kernel --depth 1 --shallow-submodules
+        git clone --recurse-submodules -j8 https://github.com/LineageOS/android_kernel_oneplus_sm8250.git -b lineage-22.2 android-kernel
 
     - name: Build kernel
       run: |
