@@ -84,5 +84,5 @@ jobs:
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: AK3-LOS22.2-OPlus-SM8250-PLAIN
+        name: AK3_LOS_22.2_oneplus_sm8250_PLAIN
         path: kernel_workspace/AnyKernel3/*

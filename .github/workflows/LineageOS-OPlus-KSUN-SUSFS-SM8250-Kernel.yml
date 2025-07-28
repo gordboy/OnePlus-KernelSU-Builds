@@ -43,7 +43,7 @@ jobs:
     - name: Download kernel sources fully expanded
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone --recurse-submodules -j8 https://github.com/jcallan1986/op8_los22.2_next_susfs.git -b lineage-22.2 android-kernel --depth 1 --shallow-submodules
+        git clone --recurse-submodules -j8 https://github.com/gordboy/op8_los22.2_next_susfs.git -b Working android-kernel --depth 1 --shallow-submodules
 
     - name: Build kernel
       run: |
@@ -84,5 +84,5 @@ jobs:
       if: env.CHECK_IMAGE == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: AK3-LOS22.2-OPlus-SM8250-KSUN-SUSFS
+        name: AK3_LOS_22.2_oneplus_sm8250_KSUN_SUSFS 
         path: kernel_workspace/AnyKernel3/*
