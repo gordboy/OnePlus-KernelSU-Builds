@@ -43,7 +43,7 @@ jobs:
     - name: Download kernel sources fully expanded (from gordboy repo)
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone --recurse-submodules -j8 https://github.com/gordboy/android_kernel_oneplus_sm8250_blu_spark_gordboy.git -b Working android-kernel
+        git clone --recurse-submodules -j8 https://github.com/gordboy/android_kernel_oneplus_sm8250_blu_spark_258_gordboy.git -b Working android-kernel
 
     - name: Build kernel
       run: |
